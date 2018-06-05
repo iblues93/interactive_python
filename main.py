@@ -23,9 +23,13 @@ def exec_function(user_input):
 def execute_user_input(i,user_input,user_globals):
     # get the function to be executed with the parameters user_input and user_globals
     print("Out[{}]: ".format(i),end='')
-    res = exec_function(user_input)(user_input,user_globals)
-    if res != None:
-        print(res)
+    try:
+        res = exec_function(user_input)(user_input,user_globals)
+    except Exception as e:
+        print("{}: {}".format(e.__class__.__name__,e))
+    else:
+        if res != None:
+            print(res)
 
 def get_user_input():
      for i in itertools.count():
