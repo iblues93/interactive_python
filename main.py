@@ -22,7 +22,9 @@ def exec_function(user_input):
 
 def execute_user_input(i,user_input,user_globals):
     # get the function to be executed with the parameters user_input and user_globals
-    exec_function(user_input)(user_input,user_globals)
+    res = exec_function(user_input)(user_input,user_globals)
+    if res != None:
+        print(res)
 
 def get_user_input():
      for i in itertools.count():
