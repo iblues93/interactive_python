@@ -5,7 +5,7 @@ def main():
     user_globals = {}
     for i, user_input in get_user_input():
         # process user input
-        execute_user_input(i,user_input,user_globals)
+        user_globals = execute_user_input(i,user_input,user_globals)
 
 def exec_function(user_input):
     # higher level wrapper to determine if user input is statement or expression
@@ -22,21 +22,22 @@ def exec_function(user_input):
 
 def execute_user_input(i,user_input,user_globals):
     # get the function to be executed with the parameters user_input and user_globals
-    print("Out[{}]: ".format(i),end='')
+    user_globals = user_globals.copy()
     try:
         res = exec_function(user_input)(user_input,user_globals)
     except Exception as e:
         print("{}: {}".format(e.__class__.__name__,e))
     else:
         if res != None:
-            print(res)
+            print("Out[{}]: {}".format(i,res))
+    return user_globals
 
 def get_user_input():
      for i in itertools.count():
         try:
             yield i, input('In[{}]: '.format(i))
-        # except KeyboardInterrupt:
-        #     pass
+        except KeyboardInterrupt:
+            pass
         except EOFError:
             break
 
